@@ -52,7 +52,7 @@ function App() {
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
-                <div>
+                <div id="main-section">
                     <Route exact path="/">
                         <Home />
                     </Route>

@@ -2,7 +2,9 @@ import React from "react";
 
 const MyRoutines = () => {
     return (
-        <h1>My Routines Page!</h1>
+        <div id="my-routines-page">
+            <h1>My Routines Page!</h1>
+        </div>
     )
 }
 

@@ -2,7 +2,9 @@ import React from "react";
 
 const Activities = () => {
     return (
-        <h1>Acitivies Page!</h1>
+        <div id="activities-page">
+            <h1>Acitivies Page!</h1>
+        </div>
     )
 }
 

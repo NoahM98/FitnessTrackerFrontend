@@ -2,9 +2,11 @@ import React from "react";
 
 const Home = () => {
     return (
-        <h1>
-            Welcome to Noah's Fitness Tracker!
-        </h1>
+        <div id="home-page">
+            <h1>
+                Welcome to Noah's Fitness Tracker!
+            </h1>
+        </div>
     )
 }
 

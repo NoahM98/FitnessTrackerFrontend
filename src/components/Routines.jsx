@@ -2,15 +2,17 @@ import React from "react";
 
 const Routines = ({ allRoutines }) => {
     return (
-        <div>
+        <div id="routines-page">
             <h1>Routines Page!</h1>
             {
-                allRoutines.map((routine) => {
+                allRoutines.map((routine, index) => {
                     return (
                         <div key={routine.id}>
-                            <h3>{routine.name}</h3>
-                            <h4>{routine.creatorName}</h4>
-                            <p>{routine.goal}</p>
+                            <h3>Name: {routine.name}</h3>
+                            <h4>Creator: {routine.creatorName}</h4>
+                            <p>ID: {routine.id}</p>
+                            <p>Index: {index}</p>
+                            <p>Goal: {routine.goal}</p>
                         </div>
                     )
                 })
