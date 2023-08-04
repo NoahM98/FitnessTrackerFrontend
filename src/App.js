@@ -6,6 +6,10 @@ import Routines from "./components/Routines.jsx";
 import MyRoutines from "./components/MyRoutines.jsx";
 import Activities from "./components/Activities.jsx";
 import Login_Logout from "./components/Login_Logout.jsx"
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import { LinkContainer } from "react-router-bootstrap";
 import { fetchRoutines } from "./api/ajax-helpers";
 
 function App() {
@@ -21,15 +25,33 @@ function App() {
     return (
         <BrowserRouter>
             <div className="App">
-                <nav>
-                    <ul>
-                        <li><Link to="/Home">Home</Link></li>
-                        <li><Link to="/Routines">Routines</Link></li>
-                        <li><Link to="/My_Routines">My Routines</Link></li>
-                        <li><Link to="/Activities">Activities</Link></li>
-                        <li><Link to="/Login_Logout">Login/Logout</Link></li>
-                    </ul>
-                </nav>
+                <Navbar sticky="top" bg="primary" variant="dark" expand="lg">
+                    <Container>
+                        <LinkContainer to="/">
+                            <Navbar.Brand>Noah's Fitness Tracker!</Navbar.Brand>
+                        </LinkContainer>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+                            <Nav className="mr-auto">
+                                <LinkContainer to="/Home">
+                                    <Nav.Link>Home</Nav.Link>
+                                </LinkContainer>
+                                <LinkContainer to="/Routines">
+                                    <Nav.Link>Routines</Nav.Link>
+                                </LinkContainer>
+                                <LinkContainer to="/My_Routines">
+                                    <Nav.Link>My Routines</Nav.Link>
+                                </LinkContainer>
+                                <LinkContainer to="/Activities">
+                                    <Nav.Link>Activities</Nav.Link>
+                                </LinkContainer>
+                                <LinkContainer to="/Login_Logout">
+                                    <Nav.Link>Login/Logout</Nav.Link>
+                                </LinkContainer>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
                 <div>
                     <Route exact path="/">
                         <Home />

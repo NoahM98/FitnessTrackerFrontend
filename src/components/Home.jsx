@@ -3,7 +3,7 @@ import React from "react";
 const Home = () => {
     return (
         <h1>
-            Welcome to Fitness Tracker!
+            Welcome to Noah's Fitness Tracker!
         </h1>
     )
 }
