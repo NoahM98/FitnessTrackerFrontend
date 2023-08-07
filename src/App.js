@@ -10,16 +10,48 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { LinkContainer } from "react-router-bootstrap";
-import { fetchRoutines } from "./api/ajax-helpers";
+import { fetchRoutines, fetchActivities, fetchUser, fetchUserRoutines } from "./api/ajax-helpers";
 
 function App() {
-    const [allRoutines, setAllRoutines] = useState([]);
     const [token, setToken] = useState('');
+    const [allRoutines, setAllRoutines] = useState([]);
+    const [allActivities, setAllActivities] = useState([]);
+    const [currentUser, setCurrentUser] = useState([]);
+    const [myRoutines, setMyRoutines] = useState([]);
 
     useEffect(() => {
-        const routinesPromise = fetchRoutines();
-        Promise.all([routinesPromise])
-            .then(res => setAllRoutines(res[0]));
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken);
+            const routinesPromise = fetchRoutines();
+            const activitiesPromise = fetchActivities();
+            const userPromise = fetchUser({ token });
+            Promise.all([routinesPromise, activitiesPromise, userPromise])
+                .then((res) => {
+                    setAllRoutines(res[0]);
+                    setAllActivities(res[1]);
+                    setCurrentUser(res[2]);
+                })
+            // This is where I left off
+            // .then(() => {
+            //     if (currentUser) {
+            //         const username = currentUser.username;
+            //         const userRoutinesPromise = fetchUserRoutines({ token, username });
+            //         Promise.all(userRoutinesPromise).then((res) => {
+            //             setMyRoutines(res);
+            //         })
+            //     }
+            // });
+
+        } else {
+            const routinesPromise = fetchRoutines();
+            const activitiesPromise = fetchActivities();
+            Promise.all([routinesPromise, activitiesPromise])
+                .then((res) => {
+                    setAllRoutines(res[0]);
+                    setAllActivities(res[1]);
+                });
+        }
     }, [token])
 
     return (
@@ -66,10 +98,10 @@ function App() {
                         <MyRoutines />
                     </Route>
                     <Route path="/Activities">
-                        <Activities />
+                        <Activities allActivities={allActivities} />
                     </Route>
                     <Route path="/Login_Logout">
-                        <Login_Logout />
+                        <Login_Logout token={token} setToken={setToken} />
                     </Route>
                 </div>
             </div>

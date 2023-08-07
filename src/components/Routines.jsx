@@ -11,7 +11,7 @@ const Routines = ({ allRoutines }) => {
                             <h3>Name: {routine.name}</h3>
                             <h4>Creator: {routine.creatorName}</h4>
                             <p>ID: {routine.id}</p>
-                            <p>Index: {index}</p>
+                            <p>Index: {index + 1}</p>
                             <p>Goal: {routine.goal}</p>
                         </div>
                     )
