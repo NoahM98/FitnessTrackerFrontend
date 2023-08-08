@@ -41,10 +41,8 @@ export const registerUser = async ({ username, password }) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                user: {
-                    username,
-                    password
-                }
+                username,
+                password
             })
         });
         const result = await response.json();
@@ -75,7 +73,7 @@ export const loginUser = async ({ username, password }) => {
     }
 }
 
-export const fetchUser = async ({ token }) => {
+export const fetchUser = async (token) => {
     try {
         const response = await fetch(`${BASE_URL}/users/me`, {
             headers: {
@@ -91,7 +89,7 @@ export const fetchUser = async ({ token }) => {
     }
 }
 
-export const fetchUserRoutines = async ({ token, username }) => {
+export const fetchUserRoutines = async (token, username) => {
     try {
         const response = await fetch(`${BASE_URL}/users/${username}/routines`, {
             headers: {

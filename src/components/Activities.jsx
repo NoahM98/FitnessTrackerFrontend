@@ -1,20 +1,19 @@
 import React from "react";
+import ActivityCard from "./ActivityCard";
 
 const Activities = ({ allActivities }) => {
     return (
         <div id="activities-page">
-            <h1>Acitivies Page!</h1>
-            {
-                allActivities.map((activity, index) => {
-                    return (
-                        <div key={activity.id}>
-                            <h3>Name: {activity.name}</h3>
-                            <p>Index: {index + 1}</p>
-                            <p>Description: {activity.description}</p>
-                        </div>
-                    )
-                })
-            }
+            <h1>Acitivies: </h1>
+            <div className="routines-activities">
+                {
+                    allActivities.map((activity, index) => {
+                        return (
+                            <ActivityCard key={activity.id} activity={activity} />
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }

@@ -1,22 +1,19 @@
 import React from "react";
+import RoutineCard from "./RoutineCard";
 
 const Routines = ({ allRoutines }) => {
     return (
         <div id="routines-page">
-            <h1>Routines Page!</h1>
-            {
-                allRoutines.map((routine, index) => {
-                    return (
-                        <div key={routine.id}>
-                            <h3>Name: {routine.name}</h3>
-                            <h4>Creator: {routine.creatorName}</h4>
-                            <p>ID: {routine.id}</p>
-                            <p>Index: {index + 1}</p>
-                            <p>Goal: {routine.goal}</p>
-                        </div>
-                    )
-                })
-            }
+            <h1>Routines: </h1>
+            <div className="routines-activities">
+                {
+                    allRoutines.map((routine, index) => {
+                        return (
+                            <RoutineCard key={routine.id} routine={routine} />
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }

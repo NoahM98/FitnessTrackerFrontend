@@ -3,10 +3,9 @@ import Register from "./Register";
 import Login from "./Login";
 import Button from 'react-bootstrap/Button';
 
-const Login_Logout = ({ token, setToken }) => {
+const Login_Logout = ({ token, setToken, currentUser }) => {
     return (
         <div id="login-logout-page">
-            <h1>Login/Logout Page!</h1>
             {!token ?
                 <>
                     <Login setToken={setToken} />
@@ -14,7 +13,7 @@ const Login_Logout = ({ token, setToken }) => {
                 </>
                 :
                 <>
-                    <h1>You are Logged In</h1>
+                    <h1>You are Logged In As {currentUser.username}</h1>
                     <Button variant="secondary" onClick={() => {
                         setToken('');
                         localStorage.removeItem("token");
