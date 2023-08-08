@@ -1,9 +1,9 @@
 import React from "react";
 
-const MyRoutines = () => {
+const MyRoutines = ({ myRoutines }) => {
     return (
         <div id="my-routines-page">
-            <h1>My Routines Page!</h1>
+            <h1>My Routines:</h1>
         </div>
     )
 }

@@ -90,10 +90,10 @@ function App() {
                         <Home />
                     </Route>
                     <Route path="/Routines">
-                        <Routines allRoutines={allRoutines} />
+                        <Routines allRoutines={allRoutines} token={token} />
                     </Route>
                     <Route path="/My_Routines">
-                        <MyRoutines />
+                        <MyRoutines myRoutines={myRoutines} />
                     </Route>
                     <Route path="/Activities">
                         <Activities allActivities={allActivities} />
