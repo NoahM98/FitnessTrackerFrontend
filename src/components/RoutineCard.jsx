@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import { deleteRoutine, updateRoutine, addActivityToRoutine } from "../api/ajax-helpers";
+import RoutineActivity from "./RoutineActivity";
 
 const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRoutines, token, currentUser, allActivities }) => {
     const [activities, setActivities] = useState(routine.activities);
@@ -14,16 +15,6 @@ const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRo
     const [activityId, setActivityId] = useState(null);
     const [count, setCount] = useState(null);
     const [duration, setDuration] = useState(null);
-
-    // useEffect(() => {
-    //     console.log(activityId);
-    // }, [activityId])
-    // useEffect(() => {
-    //     console.log(activityName);
-    // }, [activityName])
-    // useEffect(() => {
-    //     console.log(activityDescription);
-    // }, [activityDescription])
 
     const handleUpdate = async () => {
         const routineId = routine.id;
@@ -64,9 +55,7 @@ const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRo
     }
 
     const handleAddActivity = async () => {
-        // alert("Adding activity to routine...")
         const routineId = routine.id;
-        // const activityId = selectedActivity;
         const result = await addActivityToRoutine({ routineId, activityId, count, duration });
         if (result.id) {
             alert("You successfully added activity to routine!");
@@ -95,30 +84,46 @@ const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRo
         }
     }
 
+    const handleUpdateActivity = async () => {
+        alert("Trying to update activity...");
+    }
+
+    const handleDeleteActivity = async () => {
+        alert("Trying to delete activity...");
+    }
+
     return (
         <Card bg="light" className="mb-2" border="primary">
             <Card.Header>{routine.creatorName}</Card.Header>
             <Card.Body>
                 <Card.Title>{routine.name}</Card.Title>
                 <Card.Text>{routine.goal}</Card.Text>
-                {
+                {/* {
                     routine.activities && activities.length ?
-                        <>
-                            <Card.Text><strong>Activities:</strong></Card.Text>
-                            {activities.map((activity, index) => {
-                                return (
-                                    <Card key={activity.id}>
-                                        <Card.Body>
-                                            <Card.Title>{activity.name}</Card.Title>
-                                            <Card.Text>{activity.description}</Card.Text>
-                                            <Card.Text>Count: {activity.count}</Card.Text>
-                                            <Card.Text>Duration: {activity.duration}</Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                )
-                            })}
-                        </> : null
-                }
+                        <> */}
+                {routine.activities.length ?
+                    <Card.Text><strong>Activities:</strong></Card.Text> : null}
+                {activities.map((activity, index) => {
+                    return (
+                        // <Card key={activity.id}>
+                        //     <Card.Body>
+                        //         <Card.Title>{activity.name}</Card.Title>
+                        //         <Card.Text>{activity.description}</Card.Text>
+                        //         <Card.Text>Count: {activity.count}</Card.Text>
+                        //         <Card.Text>Duration: {activity.duration}</Card.Text>
+                        //     </Card.Body>
+                        // </Card>
+                        <RoutineActivity key={activity.id}
+                            token={token}
+                            activity={activity}
+                            routine={routine}
+                            currentUser={currentUser}
+                            activities={activities}
+                            setActivities={setActivities} />
+                    )
+                })}
+                {/* </> : null
+                } */}
                 {
                     routine.creatorName === currentUser.username ?
                         <>

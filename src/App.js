@@ -40,8 +40,8 @@ function App() {
             const activitiesPromise = fetchActivities();
             Promise.all([routinesPromise, activitiesPromise])
                 .then((res) => {
-                    setAllRoutines(res[0]);
-                    setAllActivities(res[1]);
+                    setAllRoutines(res[0].reverse());
+                    setAllActivities(res[1].reverse());
                 });
         }
     }, [token])
