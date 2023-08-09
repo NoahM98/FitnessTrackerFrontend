@@ -2,7 +2,7 @@ import React from "react";
 import RoutineCard from "./RoutineCard";
 import CreateRoutine from "./CreateRoutine";
 
-const Routines = ({ allRoutines, setAllRoutines, myRoutines, setMyRoutines, token, currentUser }) => {
+const Routines = ({ allRoutines, setAllRoutines, myRoutines, setMyRoutines, token, currentUser, allActivities }) => {
     return (
         <div id="routines-page">
             <h1>Routines: </h1>
@@ -25,7 +25,8 @@ const Routines = ({ allRoutines, setAllRoutines, myRoutines, setMyRoutines, toke
                                 allRoutines={allRoutines}
                                 setAllRoutines={setAllRoutines}
                                 token={token}
-                                currentUser={currentUser} />
+                                currentUser={currentUser}
+                                allActivities={allActivities} />
                         )
                     })
                 }

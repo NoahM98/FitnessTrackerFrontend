@@ -165,3 +165,47 @@ export const updateRoutine = async ({ token, routineId, name, goal, isPublic }) 
         console.error(err);
     }
 }
+
+export const postActivity = async ({ token, name, description }) => {
+    try {
+        const response = await fetch(`${BASE_URL}/activities`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                name,
+                description
+            })
+        });
+
+        const result = await response.json();
+
+        console.log(result);
+        return result
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export const addActivityToRoutine = async ({ routineId, activityId, count, duration }) => {
+    try {
+        const response = await fetch(`${BASE_URL}/routines/${routineId}/activities`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                activityId,
+                count,
+                duration
+            })
+        });
+        const result = await response.json();
+        console.log(result);
+        return result
+    } catch (err) {
+        console.error(err);
+    }
+}

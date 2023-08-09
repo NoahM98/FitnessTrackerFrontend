@@ -13,7 +13,7 @@ const Login_Logout = ({ token, setToken, currentUser }) => {
                 </>
                 :
                 <>
-                    <h1>You are Logged In As {currentUser.username}</h1>
+                    <h1>You are logged in as: {currentUser.username}</h1>
                     <Button variant="primary" onClick={() => {
                         setToken('');
                         localStorage.removeItem("token");

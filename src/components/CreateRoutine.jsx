@@ -19,7 +19,7 @@ const CreateRoutine = ({ token, allRoutines, setAllRoutines, myRoutines, setMyRo
             setGoal('');
             setIsPublic(true);
         } else {
-            alert("Failed to create routine");
+            alert("ERROR: " + result.error);
         }
     }
 

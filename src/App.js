@@ -95,7 +95,8 @@ function App() {
                             myRoutines={myRoutines}
                             setMyRoutines={setMyRoutines}
                             token={token}
-                            currentUser={currentUser} />
+                            currentUser={currentUser}
+                            allActivities={allActivities} />
                     </Route>
                     <Route path="/My_Routines">
                         <MyRoutines allRoutines={allRoutines}
@@ -103,10 +104,13 @@ function App() {
                             myRoutines={myRoutines}
                             setMyRoutines={setMyRoutines}
                             token={token}
-                            currentUser={currentUser} />
+                            currentUser={currentUser}
+                            allActivities={allActivities} />
                     </Route>
                     <Route path="/Activities">
-                        <Activities allActivities={allActivities} />
+                        <Activities allActivities={allActivities}
+                            setAllActivities={setAllActivities}
+                            token={token} />
                     </Route>
                     <Route path="/Login_Logout">
                         <Login_Logout token={token}

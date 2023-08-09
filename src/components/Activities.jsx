@@ -2,11 +2,18 @@ import React from "react";
 import ActivityCard from "./ActivityCard";
 import CreateActivity from "./CreateActivity";
 
-const Activities = ({ allActivities }) => {
+const Activities = ({ allActivities, setAllActivities, token }) => {
     return (
         <div id="activities-page">
             <h1>Acitivies: </h1>
-            <CreateActivity />
+            {
+                token ?
+                    <CreateActivity
+                        allActivities={allActivities}
+                        setAllActivities={setAllActivities}
+                        token={token} />
+                    : null
+            }
             <div className="routines-activities">
                 {
                     allActivities.map((activity, index) => {
