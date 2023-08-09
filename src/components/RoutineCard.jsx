@@ -71,9 +71,25 @@ const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRo
             if (activities) {
                 routine.activities = [...activities, ...newActivity];
                 setActivities([...activities, ...newActivity]);
+                const newAllRoutines = allRoutines.filter((el) => {
+                    return el.id !== routine.id;
+                })
+                const newMyRoutines = myRoutines.filter((el) => {
+                    return el.id !== routine.id;
+                })
+                setAllRoutines([routine, ...newAllRoutines]);
+                setMyRoutines([routine, ...newMyRoutines]);
             } else {
                 routine.activities = [...newActivity];
                 setActivities([...newActivity]);
+                const newAllRoutines = allRoutines.filter((el) => {
+                    return el.id !== routine.id;
+                })
+                const newMyRoutines = myRoutines.filter((el) => {
+                    return el.id !== routine.id;
+                })
+                setAllRoutines([routine, ...newAllRoutines]);
+                setMyRoutines([routine, ...newMyRoutines]);
             }
             setActivityId(null);
             setCount(null);
@@ -98,34 +114,24 @@ const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRo
             <Card.Body>
                 <Card.Title>{routine.name}</Card.Title>
                 <Card.Text>{routine.goal}</Card.Text>
-                {/* {
-                    routine.activities && activities.length ?
-                        <> */}
-                {routine.activities.length ?
-                    <Card.Text><strong>Activities:</strong></Card.Text> : null}
-                {activities.map((activity, index) => {
-                    return (
-                        // <Card key={activity.id}>
-                        //     <Card.Body>
-                        //         <Card.Title>{activity.name}</Card.Title>
-                        //         <Card.Text>{activity.description}</Card.Text>
-                        //         <Card.Text>Count: {activity.count}</Card.Text>
-                        //         <Card.Text>Duration: {activity.duration}</Card.Text>
-                        //     </Card.Body>
-                        // </Card>
-                        <RoutineActivity key={activity.id}
-                            token={token}
-                            activity={activity}
-                            routine={routine}
-                            currentUser={currentUser}
-                            activities={activities}
-                            setActivities={setActivities} />
-                    )
-                })}
-                {/* </> : null
-                } */}
+                {activities ?
+                    <>
+                        <Card.Text><strong>Activities:</strong></Card.Text>
+                        {activities.map((activity, index) => {
+                            return (
+                                <RoutineActivity key={activity.id}
+                                    token={token}
+                                    activity={activity}
+                                    routine={routine}
+                                    currentUser={currentUser}
+                                    activities={activities}
+                                    setActivities={setActivities} />
+                            )
+                        })}
+                    </>
+                    : null}
                 {
-                    routine.creatorName === currentUser.username ?
+                    routine.creatorName === currentUser.username && token ?
                         <>
                             <Card.Text><strong>{routine.isPublic ? "Public" : "Private"}</strong></Card.Text>
                             <Button className="m-1" variant="primary" onClick={() => {
