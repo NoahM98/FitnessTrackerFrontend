@@ -6,9 +6,26 @@ import { deleteRoutine, updateRoutine } from "../api/ajax-helpers";
 
 const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRoutines, token, currentUser }) => {
     const [isUpdating, setIsUpdating] = useState(false);
+    const [name, setName] = useState(routine.name);
+    const [goal, setGoal] = useState(routine.goal);
+    const [isPublic, setIsPublic] = useState(routine.isPublic);
 
     const handleUpdate = async () => {
-        alert("Trying to update!");
+        const routineId = routine.id;
+        const result = await updateRoutine({ token, routineId, name, goal, isPublic });
+        if (result.id) {
+            alert("You've successfully updated your routine");
+            result.creatorName = currentUser.username;
+            const newAllRoutines = allRoutines.filter((el) => {
+                return el.id !== routine.id;
+            })
+            const newMyRoutines = myRoutines.filter((el) => {
+                return el.id !== routine.id;
+            })
+            setAllRoutines([result, ...newAllRoutines]);
+            setMyRoutines([result, ...newMyRoutines]);
+            setIsUpdating(false);
+        }
     }
 
     const handleDelete = async () => {
@@ -66,7 +83,11 @@ const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRo
                 }
                 {
                     isUpdating ?
-                        <Form className="m-4 p-3 border border-3 border-primary rounded text-bg-light">
+                        <Form className="m-4 p-3 border border-3 border-primary rounded text-bg-light"
+                            onSubmit={(event) => {
+                                event.preventDefault();
+                                handleUpdate();
+                            }}>
                             <h4>Update Routine:</h4>
                             <Form.Group>
                                 <Form.Label htmlFor="name">Name</Form.Label>
@@ -74,17 +95,33 @@ const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRo
                                     id="name"
                                     type="text"
                                     required
-                                    // value={}
-                                    placeholder="name" />
+                                    value={name}
+                                    placeholder="name"
+                                    onChange={(event) => {
+                                        setName(event.target.value);
+                                    }} />
                             </Form.Group>
                             <Form.Group>
-                                <Form.Label htmlFor="description">Description</Form.Label>
+                                <Form.Label htmlFor="goal">Goal</Form.Label>
                                 <Form.Control
-                                    id="description"
+                                    id="goal"
                                     type="text"
                                     required
-                                    // value={}
-                                    placeholder="name" />
+                                    value={goal}
+                                    placeholder="goal"
+                                    onChange={(event) => {
+                                        setGoal(event.target.value);
+                                    }} />
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label html="isPublic">Public</Form.Label>
+                                <Form.Check
+                                    id="isPublic"
+                                    type="checkbox"
+                                    checked={isPublic}
+                                    onChange={(event) => {
+                                        setIsPublic(!isPublic);
+                                    }} />
                             </Form.Group>
                             <Button className="m-2" variant="primary" type="submit">Submit Update</Button>
                         </Form>

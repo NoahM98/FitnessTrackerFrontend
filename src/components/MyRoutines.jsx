@@ -1,10 +1,17 @@
 import React from "react";
 import RoutineCard from "./RoutineCard";
+import CreateRoutine from "./CreateRoutine";
 
 const MyRoutines = ({ allRoutines, setAllRoutines, myRoutines, setMyRoutines, token, currentUser }) => {
     return (
         <div id="my-routines-page">
             <h1>My Routines:</h1>
+            <CreateRoutine token={token}
+                allRoutines={allRoutines}
+                setAllRoutines={setAllRoutines}
+                myRoutines={myRoutines}
+                setMyRoutines={setMyRoutines}
+                currentUser={currentUser} />
             <div className="routines-activities">
                 {
                     myRoutines.map((routine) => {

@@ -8,16 +8,6 @@ const CreateRoutine = ({ token, allRoutines, setAllRoutines, myRoutines, setMyRo
     const [goal, setGoal] = useState('');
     const [isPublic, setIsPublic] = useState(true);
 
-    // useEffect(() => {
-    //     console.log(name);
-    // }, [name]);
-    // useEffect(() => {
-    //     console.log(goal);
-    // }, [goal]);
-    // useEffect(() => {
-    //     console.log(isPublic);
-    // }, [isPublic]);
-
     const handleSubmit = async () => {
         const result = await postRoutine({ token, name, goal, isPublic });
         if (result.id) {
@@ -39,7 +29,7 @@ const CreateRoutine = ({ token, allRoutines, setAllRoutines, myRoutines, setMyRo
                 event.preventDefault();
                 handleSubmit();
             }}>
-            <h2>Create Routine</h2>
+            <h2>Create New Routine:</h2>
             <Form.Group>
                 <Form.Label html="name">Name</Form.Label>
                 <Form.Control
@@ -67,10 +57,10 @@ const CreateRoutine = ({ token, allRoutines, setAllRoutines, myRoutines, setMyRo
                 />
             </Form.Group>
             <Form.Group>
-                <Form.Label html="isPublic">Private</Form.Label>
+                <Form.Label html="isPublic">Public</Form.Label>
                 <Form.Check
                     id="isPublic"
-                    type="checkbox"
+                    checked={isPublic}
                     onChange={(event) => {
                         setIsPublic(!isPublic);
                     }}
