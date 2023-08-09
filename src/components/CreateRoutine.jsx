@@ -1,16 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { postRoutine } from "../api/ajax-helpers";
 
-const CreateRoutine = () => {
+const CreateRoutine = ({ token, allRoutines, setAllRoutines, myRoutines, setMyRoutines, currentUser }) => {
     const [name, setName] = useState('');
     const [goal, setGoal] = useState('');
-    const [isPublic, setIsPublic] = useState(false);
+    const [isPublic, setIsPublic] = useState(true);
+
+    // useEffect(() => {
+    //     console.log(name);
+    // }, [name]);
+    // useEffect(() => {
+    //     console.log(goal);
+    // }, [goal]);
+    // useEffect(() => {
+    //     console.log(isPublic);
+    // }, [isPublic]);
+
+    const handleSubmit = async () => {
+        const result = await postRoutine({ token, name, goal, isPublic });
+        if (result.id) {
+            result.creatorName = currentUser.username;
+            alert("You successfull created a routine!");
+            setAllRoutines([result, ...allRoutines]);
+            setMyRoutines([result, ...myRoutines]);
+            setName('');
+            setGoal('');
+            setIsPublic(true);
+        } else {
+            alert("Failed to create routine");
+        }
+    }
 
     return (
         <Form className="form m-4 p-3 border border-3 border-primary rounded text-bg-light"
             onSubmit={(event) => {
                 event.preventDefault();
+                handleSubmit();
             }}>
             <h2>Create Routine</h2>
             <Form.Group>
@@ -40,7 +67,7 @@ const CreateRoutine = () => {
                 />
             </Form.Group>
             <Form.Group>
-                <Form.Label html="isPublic">Public</Form.Label>
+                <Form.Label html="isPublic">Private</Form.Label>
                 <Form.Check
                     id="isPublic"
                     type="checkbox"
@@ -49,6 +76,7 @@ const CreateRoutine = () => {
                     }}
                 />
             </Form.Group>
+            <Button className="m-2" variant="primary" type="submit">Create</Button>
         </Form>
     )
 }

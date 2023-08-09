@@ -14,7 +14,7 @@ const Login_Logout = ({ token, setToken, currentUser }) => {
                 :
                 <>
                     <h1>You are Logged In As {currentUser.username}</h1>
-                    <Button variant="secondary" onClick={() => {
+                    <Button variant="primary" onClick={() => {
                         setToken('');
                         localStorage.removeItem("token");
                     }}>Logout</Button>

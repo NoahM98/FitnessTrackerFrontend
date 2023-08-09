@@ -28,11 +28,11 @@ function App() {
             const userPromise = fetchUser(storedToken);
             Promise.all([routinesPromise, activitiesPromise, userPromise])
                 .then(async (res) => {
-                    setAllRoutines(res[0]);
-                    setAllActivities(res[1]);
+                    setAllRoutines(res[0].reverse());
+                    setAllActivities(res[1].reverse());
                     setCurrentUser(res[2]);
                     const userRoutines = await fetchUserRoutines(storedToken, res[2].username);
-                    setMyRoutines(userRoutines);
+                    setMyRoutines(userRoutines.reverse());
                 })
 
         } else {
@@ -90,16 +90,28 @@ function App() {
                         <Home />
                     </Route>
                     <Route path="/Routines">
-                        <Routines allRoutines={allRoutines} token={token} />
+                        <Routines allRoutines={allRoutines}
+                            setAllRoutines={setAllRoutines}
+                            myRoutines={myRoutines}
+                            setMyRoutines={setMyRoutines}
+                            token={token}
+                            currentUser={currentUser} />
                     </Route>
                     <Route path="/My_Routines">
-                        <MyRoutines myRoutines={myRoutines} />
+                        <MyRoutines allRoutines={allRoutines}
+                            setAllRoutines={setAllRoutines}
+                            myRoutines={myRoutines}
+                            setMyRoutines={setMyRoutines}
+                            token={token}
+                            currentUser={currentUser} />
                     </Route>
                     <Route path="/Activities">
                         <Activities allActivities={allActivities} />
                     </Route>
                     <Route path="/Login_Logout">
-                        <Login_Logout token={token} setToken={setToken} currentUser={currentUser} />
+                        <Login_Logout token={token}
+                            setToken={setToken}
+                            currentUser={currentUser} />
                     </Route>
                 </div>
             </div>
