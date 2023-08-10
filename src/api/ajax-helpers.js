@@ -82,6 +82,7 @@ export const fetchUser = async (token) => {
             },
         });
         const result = await response.json();
+        delete result.password;
         console.log(result);
         return result;
     } catch (err) {
