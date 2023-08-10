@@ -52,7 +52,7 @@ function App() {
                 <Navbar sticky="top" bg="primary" variant="dark" expand="lg">
                     <Container>
                         <LinkContainer to="/">
-                            <Navbar.Brand>Noah's Fitness Tracker!</Navbar.Brand>
+                            <Navbar.Brand>Fitness Tracker</Navbar.Brand>
                         </LinkContainer>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">

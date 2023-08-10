@@ -53,6 +53,10 @@
         width: 800px;
     }
 
+    #home-page {
+        font-size: 40px;
+    }
+
 }
 
 @media (max-width: 900px) {
@@ -64,8 +68,12 @@
         width: 90%;
     }
 
-    #home-page>h1,
-    #home-page>h2 {
-        font-size: 20px;
+    #home-page {
+        text-align: center;
+        margin: 10px;
+    }
+
+    #home-page>h1 {
+        font-size: 30px;
     }
 }

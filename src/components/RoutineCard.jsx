@@ -8,6 +8,7 @@ import RoutineActivity from "./RoutineActivity";
 const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRoutines, token, currentUser, allActivities }) => {
     const [activities, setActivities] = useState(routine.activities);
     const [isUpdating, setIsUpdating] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [isAddingActivity, setIsAddingActivity] = useState(false);
     const [name, setName] = useState(routine.name);
     const [goal, setGoal] = useState(routine.goal);
@@ -17,11 +18,13 @@ const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRo
     const [duration, setDuration] = useState(null);
 
     const handleUpdate = async () => {
+        setIsLoading(true);
         const routineId = routine.id;
         const result = await updateRoutine({ token, routineId, name, goal, isPublic });
         if (result.id) {
             alert("You've successfully updated your routine");
             result.creatorName = currentUser.username;
+            result.activities = activities;
             const newAllRoutines = allRoutines.filter((el) => {
                 return el.id !== routine.id;
             })
@@ -34,9 +37,11 @@ const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRo
         } else {
             alert("ERROR: " + result.error);
         }
+        setIsLoading(false);
     }
 
     const handleDelete = async () => {
+        setIsLoading(true);
         const routineId = routine.id;
         const result = await deleteRoutine({ token, routineId });
         if (result.id) {
@@ -52,9 +57,11 @@ const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRo
         } else {
             alert("ERROR: " + result.error);
         }
+        setIsLoading(false);
     }
 
     const handleAddActivity = async () => {
+        setIsLoading(true);
         const routineId = routine.id;
         const result = await addActivityToRoutine({ routineId, activityId, count, duration });
         if (result.id) {
@@ -98,14 +105,7 @@ const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRo
         } else {
             alert("ERROR: " + result.error)
         }
-    }
-
-    const handleUpdateActivity = async () => {
-        alert("Trying to update activity...");
-    }
-
-    const handleDeleteActivity = async () => {
-        alert("Trying to delete activity...");
+        setIsLoading(false);
     }
 
     return (
@@ -125,7 +125,11 @@ const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRo
                                     routine={routine}
                                     currentUser={currentUser}
                                     activities={activities}
-                                    setActivities={setActivities} />
+                                    setActivities={setActivities}
+                                    myRoutines={myRoutines}
+                                    setMyRoutines={setMyRoutines}
+                                    allRoutines={allRoutines}
+                                    setAllRoutines={setAllRoutines} />
                             )
                         })}
                     </>
@@ -135,16 +139,21 @@ const RoutineCard = ({ routine, myRoutines, setMyRoutines, allRoutines, setAllRo
                         <>
                             <Card.Text><strong>{routine.isPublic ? "Public" : "Private"}</strong></Card.Text>
                             <Button className="m-1" variant="primary" onClick={() => {
-                                setIsUpdating(!isUpdating);
-                                setIsAddingActivity(false)
-                            }}>Update</Button>
-                            <Button className="m-1" variant="primary" onClick={() => {
                                 setIsAddingActivity(!isAddingActivity);
                                 setIsUpdating(false)
                             }}>Add Activity</Button>
+                            <Button className="m-1" variant="primary" onClick={() => {
+                                setIsUpdating(!isUpdating);
+                                setIsAddingActivity(false)
+                            }}>Update</Button>
                             <Button className="m-1" variant="danger" onClick={() => {
                                 handleDelete();
                             }}>Delete</Button>
+                            {
+                                isLoading ?
+                                    <Card.Text>LOADING...</Card.Text>
+                                    : null
+                            }
                         </>
                         : null
                 }
